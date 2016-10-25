@@ -39,13 +39,27 @@ function preload() {
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.scale.minWidth = 480;
     this.scale.minHeight = 260;
-   this.scale.maxWidth = 1024;
-   this.scale.maxHeight = 768;
+    this.scale.maxWidth = 1324;
+    this.scale.maxHeight = 768;
     this.scale.forceLandscape = true;
         
         game.load.image('clouds', 'assets/seamles.jpg');
         game.load.image('coin', 'assets/box.png');
 
+/*описание*/
+
+        game.load.image('cut_16', 'assets/cut_16_20.jpg');
+
+/*дым*/
+        game.load.image('snog3', 'assets/snog3.png');
+        game.load.image('smoke', 'assets/smoke.png');
+
+/*тату*/
+        
+        game.load.image('print1', 'assets/print1.jpg');
+        game.load.image('print2', 'assets/print2.jpg');
+        game.load.image('print3', 'assets/print3.jpg');
+        game.load.image('print4', 'assets/print4.jpg');
 }
 
 
@@ -66,6 +80,7 @@ function preload() {
 }*/
 
 function create() { 
+    
     worldScale=1;
 
     stageGroup = game.add.group(); // this group will contain everything except the UI for scaling
@@ -76,18 +91,38 @@ function create() {
     mapSizeCurrent = mapSizeMax;
 
     //add clousds
-   // clouds = game.add.sprite(0, 0, 'clouds');
-   // clouds.scale.setTo(5,2);
+    // clouds = game.add.sprite(0, 0, 'clouds');
+    // clouds.scale.setTo(5,2);
     //add coin
 
  /*   coin = game.add.sprite(400,400, 'coin');
     coin.scale.setTo(4,4);
     coin.anchor.setTo(0.5,0.5);*/
 
-/*добавляем статический объект*/
-    coin = game.add.sprite(4000,4000,'coin');
+/*add статический объект*/
+        coin = game.add.sprite(4000,4000,'coin');
         coin.scale.setTo(4,4);
         coin.anchor.setTo(0.5,0.5);
+
+
+/*add описание*/
+        
+        snog3 = game.add.sprite(3780,4000,'cut_16');
+
+/*add дым*/
+
+        s1 = game.add.sprite(3850,3400,'snog3');
+        s2 = game.add.sprite(3850,2900,'snog3');
+        s3 = game.add.sprite(3850,2900,'smoke');
+        s3 = game.add.sprite(3350,2900,'smoke');
+        s4 = game.add.sprite(3050,2900,'smoke');
+
+/*add тату*/
+        print1 = game.add.sprite(3850,3400,'print1');
+        print2 = game.add.sprite(3850,2600,'print2');
+        print3 = game.add.sprite(3150,2600,'print3');
+        print4 = game.add.sprite(4400,2480,'print4');
+
 
 /*добавляем бэкграунд */
         background1=game.add.tileSprite(0, 0, mapSizeX,mapSizeY ,'clouds');
