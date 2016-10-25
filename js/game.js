@@ -97,7 +97,7 @@ function create() {
     mapSizeMax = mapSizeX;
     mapSizeCurrent = mapSizeMax;
  
-
+game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 /*добовляем фон для паралакса с движением, как в играх*/
     var skyl = game.add.tileSprite(0, 0, this.game.width, this.game.height, 'clouds');
     skyl.autoScroll(540, 10);
@@ -129,19 +129,28 @@ function create() {
 
 /*ass стрелки*/
 
-    logo1 = game.add.sprite(4000,4000, 'arrowup');
+    button3 = game.add.button(4000,4000, 'arrowup', actionOnClickC, this);
 
-    logo3 = game.add.sprite(3870,4000, 'arrowup');
+    button4 = game.add.button(3870,4000, 'arrowup', actionOnClickD, this);
 
-    logo2 = game.add.sprite(200, 530, 'arrow');
-    logo2.fixedToCamera = true;
+   // button = game.add.sprite(200, 530, 'arrow');
+   // button.fixedToCamera = true;
 
-    logo4 = game.add.sprite(270, 530, 'BoxBlue');
-    logo4.fixedToCamera = true;
+
+    button1 = game.add.button(200, 530, 'arrow', actionOnClickA, this);
+    button1.fixedToCamera = true;
+
+    button2 = game.add.button(270, 530, 'BoxBlue', actionOnClickB, this);
+    button2.fixedToCamera = true;
 
     
 
-   
+/*события клика*/
+    
+    /*клик на экрна*/
+   // game.input.onDown.add(changeTint, this);
+
+    // logo2.events.onInputDown.add(destroySprite, game);
 
    // logo3 = game.add.sprite(200, 530, 'arrow');
 
@@ -205,6 +214,49 @@ function create() {
             worldScale = (mapSizeCurrent/mapSizeMax);
         };
 }*/
+
+
+/*обработка события клика*/
+
+function actionOnClickA () {
+
+  //  console.log(111);
+   game.camera.x = 3600;
+   game.camera.y = 3700;
+}
+
+function actionOnClickB () {
+
+ console.log(222);
+ if (game.scale.isFullScreen)
+    {
+        game.scale.stopFullScreen();
+    }
+    else
+    {
+        game.scale.startFullScreen(false);
+    }
+   
+   
+}
+
+function actionOnClickC () {
+
+    //console.log(333);
+
+    game.camera.x = 3600;
+    game.camera.y = 2450;
+   
+}
+
+function actionOnClickD () {
+
+    //console.log(444);
+
+    game.camera.x = 3600;
+    game.camera.y = 3200;
+   
+}
 
 function update() {
         
