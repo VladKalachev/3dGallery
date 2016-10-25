@@ -60,6 +60,13 @@ function preload() {
         game.load.image('print2', 'assets/print2.jpg');
         game.load.image('print3', 'assets/print3.jpg');
         game.load.image('print4', 'assets/print4.jpg');
+
+/*интерфейс*/
+        
+        game.load.image('arrow', 'assets/arrow.png');
+        game.load.image('arrowup', 'assets/arrow_up.png');
+        game.load.image('BoxBlue', 'assets/BoxBlue.png');
+
 }
 
 
@@ -89,15 +96,12 @@ function create() {
 
     mapSizeMax = mapSizeX;
     mapSizeCurrent = mapSizeMax;
+ 
 
-    //add clousds
-    // clouds = game.add.sprite(0, 0, 'clouds');
-    // clouds.scale.setTo(5,2);
-    //add coin
-
- /*   coin = game.add.sprite(400,400, 'coin');
-    coin.scale.setTo(4,4);
-    coin.anchor.setTo(0.5,0.5);*/
+/*добовляем фон для паралакса с движением, как в играх*/
+    var skyl = game.add.tileSprite(0, 0, this.game.width, this.game.height, 'clouds');
+    skyl.autoScroll(540, 10);
+    skyl.scale.setTo(10,10);
 
 /*add статический объект*/
         coin = game.add.sprite(4000,4000,'coin');
@@ -123,9 +127,32 @@ function create() {
         print3 = game.add.sprite(3150,2600,'print3');
         print4 = game.add.sprite(4400,2480,'print4');
 
+/*ass стрелки*/
+
+    logo1 = game.add.sprite(4000,4000, 'arrowup');
+
+    logo3 = game.add.sprite(3870,4000, 'arrowup');
+
+    logo2 = game.add.sprite(200, 530, 'arrow');
+    logo2.fixedToCamera = true;
+
+    logo4 = game.add.sprite(270, 530, 'BoxBlue');
+    logo4.fixedToCamera = true;
+
+    
+
+   
+
+   // logo3 = game.add.sprite(200, 530, 'arrow');
+
+
+   /* logo3 = game.add.sprite(300, 570, 'life');
+    logo3.fixedToCamera = true;*/
 
 /*добавляем бэкграунд */
         background1=game.add.tileSprite(0, 0, mapSizeX,mapSizeY ,'clouds');
+
+
         backgroundobjects.add(background1);
         backgroundobjects.add(coin);
         stageGroup.add(backgroundobjects);
