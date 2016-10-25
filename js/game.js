@@ -90,6 +90,8 @@ function create() {
     
     worldScale=1;
 
+    cursors = game.input.keyboard.createCursorKeys();
+
     stageGroup = game.add.group(); // this group will contain everything except the UI for scaling
     backgroundobjects = game.add.group();
     groundobjects = game.add.group();
@@ -259,7 +261,30 @@ function actionOnClickD () {
 }
 
 function update() {
+
+    /*управление с клавиатуры*/
+
+    if (cursors.up.isDown)
+    {
+        game.camera.y -= 4;
+    }
+    else if (cursors.down.isDown)
+    {
+        game.camera.y += 4;
+    }
+
+    if (cursors.left.isDown)
+    {
+        game.camera.x -= 4;
+    }
+    else if (cursors.right.isDown)
+    {
+        game.camera.x += 4;
+    }
         
+
+/*управление мышью*/
+
 
         if(game.input.pointer1.isDown && game.input.pointer2.isDown){
             olddistance = distance;
