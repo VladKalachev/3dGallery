@@ -1,6 +1,13 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, "game" , { preload: preload, create: create, update: update });
+var widt = $(window).width(),
+ heigh = $(window).height();
 
+var game = new Phaser.Game(widt, heigh, Phaser.AUTO, "game" , { preload: preload, create: create, update: update });
 
+var wi1 = $(window).width() - 100;
+var hi1 = $(window).height() - 100;
+
+var wi2 = $(window).width() - 200;
+var hi2 = $(window).height() - 100;
 
 /*var game = new Phaser.Game(worldwidth, worldheight, Phaser.CANVAS, "game", {});
 game.state.add('menu', Menu, true);*/
@@ -46,6 +53,8 @@ function preload() {
         game.load.image('clouds', 'assets/seamles.jpg');
         game.load.image('coin', 'assets/box.png');
 
+
+
 /*описание*/
 
         game.load.image('cut_16', 'assets/cut_16_20.jpg');
@@ -63,9 +72,11 @@ function preload() {
 
 /*интерфейс*/
         
-        game.load.image('arrow', 'assets/arrow.png');
+        game.load.spritesheet('arrow', 'assets/arrow.png', 55, 55);
         game.load.image('arrowup', 'assets/arrow_up.png');
         game.load.image('BoxBlue', 'assets/BoxBlue.png');
+
+        game.load.spritesheet('buttonA', 'assets/button_sprite_sheet.png', 193, 71);
 
 }
 
@@ -117,6 +128,7 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 /*add дым*/
 
+
         s1 = game.add.sprite(3850,3400,'snog3');
         s2 = game.add.sprite(3850,2900,'snog3');
         s3 = game.add.sprite(3850,2900,'smoke');
@@ -124,7 +136,10 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
         s4 = game.add.sprite(3050,2900,'smoke');
 
 /*add тату*/
-        print1 = game.add.sprite(3850,3400,'print1');
+var s1w1 = 3850;
+var s1h1 = 3400;
+
+        print1 = game.add.sprite(s1w1,s1h1,'print1');
         print2 = game.add.sprite(3850,2600,'print2');
         print3 = game.add.sprite(3150,2600,'print3');
         print4 = game.add.sprite(4400,2480,'print4');
@@ -139,13 +154,15 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
    // button.fixedToCamera = true;
 
 
-    button1 = game.add.button(200, 530, 'arrow', actionOnClickA, this);
+    button1 = game.add.button(wi1, hi1, 'arrow', actionOnClickA, this, 1, 0);
     button1.fixedToCamera = true;
 
-    button2 = game.add.button(270, 530, 'BoxBlue', actionOnClickB, this);
+    button2 = game.add.button(wi2, hi2, 'BoxBlue', actionOnClickB, this);
     button2.fixedToCamera = true;
 
-    
+/*0- ховер 1- обычное состояние 2- при клике*/
+  //  button = game.add.button(270, 130, 'buttonA', actionOnClickB1, this, 1, 2, 0);
+  //  button.fixedToCamera = true;
 
 /*события клика*/
     
@@ -220,11 +237,18 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 /*обработка события клика*/
 
+function actionOnClickB1 () {
+
+    console.log(111);
+  // game.camera.x = 3600;
+  // game.camera.y = 3700;
+}
+
 function actionOnClickA () {
 
   //  console.log(111);
-   game.camera.x = 3600;
-   game.camera.y = 3700;
+   game.camera.x = 3180;
+   game.camera.y = 3600;
 }
 
 function actionOnClickB () {
@@ -253,7 +277,7 @@ function actionOnClickC () {
 
 function actionOnClickD () {
 
-    //console.log(444);
+    console.log(444);
 
     game.camera.x = 3600;
     game.camera.y = 3200;
@@ -266,20 +290,20 @@ function update() {
 
     if (cursors.up.isDown)
     {
-        game.camera.y -= 4;
+        game.camera.y -= 10;
     }
     else if (cursors.down.isDown)
     {
-        game.camera.y += 4;
+        game.camera.y += 10;
     }
 
     if (cursors.left.isDown)
     {
-        game.camera.x -= 4;
+        game.camera.x -= 10;
     }
     else if (cursors.right.isDown)
     {
-        game.camera.x += 4;
+        game.camera.x += 10;
     }
         
 
