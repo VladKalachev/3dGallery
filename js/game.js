@@ -1,7 +1,11 @@
 var widt = $(window).width(),
  heigh = $(window).height();
 
-var game = new Phaser.Game(widt, heigh, Phaser.AUTO, "game" , { preload: preload, create: create, update: update });
+var game = new Phaser.Game(widt, heigh, Phaser.AUTO, "game" , { 
+    preload: preload, 
+    create: create, 
+    update: update 
+});
 
 var wi1 = $(window).width() - 100;
 var hi1 = $(window).height() - 100;
@@ -81,22 +85,6 @@ function preload() {
 }
 
 
-/*function preload() {
-
-        game.scale.pageAlignHorizontally = true;
-        game.scale.pageAlignVertically = true;
-        //game.scale.setScreenSize(true);
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.minWidth = 480;
-        this.scale.minHeight = 260;
-        this.scale.maxWidth = 1024;
-        this.scale.maxHeight = 768;
-        //this.scale.forceLandscape = true;
-        
-        game.load.image('clouds', 'https://fc08.deviantart.net/fs71/f/2010/328/c/e/seamless_tiling___cracked_by_cesstrelle-d33i6by.jpg');
-        game.load.image('coin', 'http://png-3.findicons.com/files/icons/1588/farm_fresh_web/32/box.png');
-}*/
-
 function create() { 
     
     worldScale=1;
@@ -110,6 +98,9 @@ function create() {
     mapSizeMax = mapSizeX;
     mapSizeCurrent = mapSizeMax;
  
+/*задаецм ввет фона*/
+game.stage.backgroundColor = "#1BDCFF";
+
 game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 /*добовляем фон для паралакса с движением, как в играх*/
     var skyl = game.add.tileSprite(0, 0, this.game.width, this.game.height, 'clouds');
@@ -136,8 +127,12 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
         s4 = game.add.sprite(3050,2900,'smoke');
 
 /*add тату*/
-var s1w1 = 3850;
-var s1h1 = 3400;
+ s1w1 = 3850;
+ s1h1 = 3400;
+/*x*/ s1w11 = s1w1 - 50;
+/*y*/ s1h11 = s1h1 - 150;
+
+
 
         print1 = game.add.sprite(s1w1,s1h1,'print1');
         print2 = game.add.sprite(3850,2600,'print2');
@@ -246,9 +241,8 @@ function actionOnClickB1 () {
 
 function actionOnClickA () {
 
-  //  console.log(111);
-   game.camera.x = 3180;
-   game.camera.y = 3600;
+/*фокусируется на конекретный коррдинатах!*/
+   game.camera.focusOnXY(4000,4000);
 }
 
 function actionOnClickB () {
@@ -276,11 +270,14 @@ function actionOnClickC () {
 }
 
 function actionOnClickD () {
-
+    
+    game.camera.focusOnXY(4000,3570);
     console.log(444);
 
-    game.camera.x = 3600;
-    game.camera.y = 3200;
+    //game.camera.x = s1w11;
+    //game.camera.y = s1h11;
+
+    //game.camera.focusOnXY(s1w11,s1h11);
    
 }
 
