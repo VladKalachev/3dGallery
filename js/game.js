@@ -38,6 +38,9 @@ var distancedelta=0;
 var easing=0.1;
 
 
+/*попап*/
+var popup;
+var tween = null;
 
 /*подгрузка всех ресурсов*/
 
@@ -82,7 +85,15 @@ function preload() {
 
         game.load.spritesheet('buttonA', 'assets/button_sprite_sheet.png', 193, 71);
 
+/*попапы*/
+
+
+    game.load.image('background', 'assets/bubble-on.png');
+    game.load.image('close', 'assets/orb-red.png');
+
+
 }
+
 
 
 function create() { 
@@ -135,6 +146,9 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 
         print1 = game.add.sprite(s1w1,s1h1,'print1');
+        //print1.inputEnabled = true;
+        //print1.input.enableDrag();
+
         print2 = game.add.sprite(3850,2600,'print2');
         print3 = game.add.sprite(3150,2600,'print3');
         print4 = game.add.sprite(4400,2480,'print4');
@@ -152,12 +166,67 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     button1 = game.add.button(wi1, hi1, 'arrow', actionOnClickA, this, 1, 0);
     button1.fixedToCamera = true;
 
-    button2 = game.add.button(wi2, hi2, 'BoxBlue', actionOnClickB, this);
-    button2.fixedToCamera = true;
+   // button2 = game.add.button(wi2, hi2, 'BoxBlue', openWindow, this);
+   // button2.fixedToCamera = true;
+   // button2.input.useHandCursor = true;
 
 /*0- ховер 1- обычное состояние 2- при клике*/
   //  button = game.add.button(270, 130, 'buttonA', actionOnClickB1, this, 1, 2, 0);
   //  button.fixedToCamera = true;
+
+    //button = game.add.button(game.world.centerX - 95, 460, 'buttonA', openWindow, this, 2, 1, 0);
+   // button.input.useHandCursor = true;
+
+/*папап*/
+//  You can drag the pop-up window around
+    popup = game.add.button(4000,4000, 'background', openWindow, this);
+   // popup = game.add.sprite(4000,4000, 'background');
+    popup.alpha = 0.8;
+    popup.anchor.set(0.5);
+    popup.inputEnabled = true;
+    popup.input.enableDrag();
+
+    //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
+    var pw = (popup.width / 2) - 30;
+    var ph = (popup.height / 2) - 8;
+
+    //  And click the close button to close it down again
+    var closeButton = game.make.sprite(pw, -ph, 'close');
+    closeButton.inputEnabled = true;
+    closeButton.input.priorityID = 1;
+    closeButton.input.useHandCursor = true;
+    closeButton.events.onInputDown.add(closeWindow, this);
+
+    //  Add the "close button" to the popup window image
+    popup.addChild(closeButton);
+
+    //  Hide it awaiting a click
+    popup.scale.set(0.1);
+
+
+function openWindow() {
+
+    if ((tween !== null && tween.isRunning) || popup.scale.x === 1)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+
+}
+
+function closeWindow() {
+
+    if (tween && tween.isRunning || popup.scale.x === 0.1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(popup.scale).to( { x: 0.1, y: 0.1 }, 500, Phaser.Easing.Elastic.In, true);
+
+}
 
 /*события клика*/
     
