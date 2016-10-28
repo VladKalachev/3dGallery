@@ -91,6 +91,7 @@ function preload() {
     game.load.image('background', 'assets/bubble-on.png');
     game.load.image('close', 'assets/orb-red.png');
 
+/*фильтры*/
 
 }
 
