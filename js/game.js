@@ -138,16 +138,36 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
         s4 = game.add.sprite(3050,2900,'smoke');
 
 /*add тату*/
- s1w1 = 3850;
+ s1w1 = 4000;
  s1h1 = 3400;
-/*x*/ s1w11 = s1w1 - 50;
-/*y*/ s1h11 = s1h1 - 150;
 
+/*папап*/
 
+    popup = game.add.button(s1w1,s1h1,'print1', openWindow, this);
+  
+  /*прозрачность*/
+    //popup.alpha = 0.8;
+    popup.anchor.set(0.5);
 
-        print1 = game.add.sprite(s1w1,s1h1,'print1');
-        //print1.inputEnabled = true;
-        //print1.input.enableDrag();
+    var pw = (popup.width / 2) - 48;
+    var ph = (popup.height / 2) - 8;
+
+    //  And click the close button to close it down again
+    
+    var closeButton = game.make.sprite(pw, -ph, 'close');
+    closeButton.inputEnabled = true;
+    closeButton.input.priorityID = 1;
+    closeButton.input.useHandCursor = true;
+    closeButton.events.onInputDown.add(closeWindow, this);
+    //closeButton.scale.set(0);
+
+    closeButton.visible = false;
+
+    //  Add the "close button" to the popup window image
+    popup.addChild(closeButton);
+
+    //  Hide it awaiting a click
+    popup.scale.set(1);
 
         print2 = game.add.sprite(3850,2600,'print2');
         print3 = game.add.sprite(3150,2600,'print3');
@@ -159,87 +179,44 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
     button4 = game.add.button(3870,4000, 'arrowup', actionOnClickD, this);
 
-   // button = game.add.sprite(200, 530, 'arrow');
-   // button.fixedToCamera = true;
-
-
     button1 = game.add.button(wi1, hi1, 'arrow', actionOnClickA, this, 1, 0);
     button1.fixedToCamera = true;
 
-   // button2 = game.add.button(wi2, hi2, 'BoxBlue', openWindow, this);
-   // button2.fixedToCamera = true;
-   // button2.input.useHandCursor = true;
+
 
 /*0- ховер 1- обычное состояние 2- при клике*/
   //  button = game.add.button(270, 130, 'buttonA', actionOnClickB1, this, 1, 2, 0);
   //  button.fixedToCamera = true;
 
-    //button = game.add.button(game.world.centerX - 95, 460, 'buttonA', openWindow, this, 2, 1, 0);
-   // button.input.useHandCursor = true;
 
-/*папап*/
-//  You can drag the pop-up window around
-    popup = game.add.button(4000,4000, 'background', openWindow, this);
-   // popup = game.add.sprite(4000,4000, 'background');
-    popup.alpha = 0.8;
-    popup.anchor.set(0.5);
-    popup.inputEnabled = true;
-    popup.input.enableDrag();
-
-    //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
-    var pw = (popup.width / 2) - 30;
-    var ph = (popup.height / 2) - 8;
-
-    //  And click the close button to close it down again
-    var closeButton = game.make.sprite(pw, -ph, 'close');
-    closeButton.inputEnabled = true;
-    closeButton.input.priorityID = 1;
-    closeButton.input.useHandCursor = true;
-    closeButton.events.onInputDown.add(closeWindow, this);
-
-    //  Add the "close button" to the popup window image
-    popup.addChild(closeButton);
-
-    //  Hide it awaiting a click
-    popup.scale.set(0.1);
 
 
 function openWindow() {
 
-    if ((tween !== null && tween.isRunning) || popup.scale.x === 1)
+    if ((tween !== null && tween.isRunning) || popup.scale.x === 1.5)
     {
         return;
     }
     
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
-    tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-
+    tween = game.add.tween(popup.scale).to( { x: 1.5, y: 1.5 }, 1000, Phaser.Easing.Elastic.Out, true);
+            //game.add.tween(closeButton.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+            closeButton.visible = true;
 }
 
 function closeWindow() {
 
-    if (tween && tween.isRunning || popup.scale.x === 0.1)
+    if (tween && tween.isRunning || popup.scale.x === 1)
     {
         return;
     }
 
     //  Create a tween that will close the window, but only if it's not already tweening or closed
-    tween = game.add.tween(popup.scale).to( { x: 0.1, y: 0.1 }, 500, Phaser.Easing.Elastic.In, true);
-
+    tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
+            //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+            closeButton.visible = false;
 }
 
-/*события клика*/
-    
-    /*клик на экрна*/
-   // game.input.onDown.add(changeTint, this);
-
-    // logo2.events.onInputDown.add(destroySprite, game);
-
-   // logo3 = game.add.sprite(200, 530, 'arrow');
-
-
-   /* logo3 = game.add.sprite(300, 570, 'life');
-    logo3.fixedToCamera = true;*/
 
 /*добавляем бэкграунд */
         background1=game.add.tileSprite(0, 0, mapSizeX,mapSizeY ,'clouds');
@@ -261,43 +238,6 @@ function closeWindow() {
             worldScale = (mapSizeCurrent/mapSizeMax);
     };
 }
-
-/*добавляем объекты в игровой мир*/
-/*function create() {
-        worldScale=1;
-        
-        stageGroup = game.add.group(); // this group will contain everything except the UI for scaling
-        backgroundobjects = game.add.group();
-        groundobjects = game.add.group();
-
-        mapSizeMax = mapSizeX;
-        mapSizeCurrent = mapSizeMax;
-
-
-        coin = game.add.sprite(4000,4000,'coin');
-        coin.scale.setTo(4,4);
-        coin.anchor.setTo(0.5,0.5);
-
-        background1=game.add.tileSprite(0, 0, mapSizeX,mapSizeY ,'clouds');
-        backgroundobjects.add(background1);
-        backgroundobjects.add(coin);
-        stageGroup.add(backgroundobjects);
-        stageGroup.add(groundobjects);
-        currentBounds = new Phaser.Rectangle(-mapSizeX, -mapSizeY, mapSizeX*2, mapSizeY*2); 
-        
-        game.camera.bounds=currentBounds;
-        game.camera.focusOnXY(4000,4000);
-
-
-
-        game.input.mouse.mouseWheelCallback = function (event) {
-            var wheelDelt = game.input.mouse.wheelDelta;
-            if (wheelDelt < 0)  {   mapSizeCurrent -= 400;  mapSizeCurrent = Phaser.Math.clamp(mapSizeCurrent, worldwidth , mapSizeMax);}
-            else                {   mapSizeCurrent += 400;  mapSizeCurrent = Phaser.Math.clamp(mapSizeCurrent, worldwidth , mapSizeMax);}
-            worldScale = (mapSizeCurrent/mapSizeMax);
-        };
-}*/
-
 
 /*обработка события клика*/
 
@@ -325,8 +265,7 @@ function actionOnClickB () {
     {
         game.scale.startFullScreen(false);
     }
-   
-   
+    
 }
 
 function actionOnClickC () {
@@ -339,14 +278,9 @@ function actionOnClickC () {
 }
 
 function actionOnClickD () {
-    
-    game.camera.focusOnXY(4000,3570);
+
+    game.camera.focusOnXY(4000,3400);
     console.log(444);
-
-    //game.camera.x = s1w11;
-    //game.camera.y = s1h11;
-
-    //game.camera.focusOnXY(s1w11,s1h11);
    
 }
 
