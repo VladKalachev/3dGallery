@@ -144,15 +144,35 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 /*папап*/
 
     popup = game.add.button(s1w1,s1h1,'print1', openWindow, this);
-  
-  /*прозрачность*/
+    
+    /*прозрачность*/
     //popup.alpha = 0.8;
     popup.anchor.set(0.5);
+    // Hide it awaiting a click
+    popup.scale.set(1);
+
+    //print2 = game.add.sprite(3850,2600,'print2');
+    print2 = game.add.button(4000,2750,'print2', openWindow2, this);
+    print2.anchor.set(0.5);
+    print2.scale.set(1);
+
+
+    print3 = game.add.button(3150,2750,'print3', openWindow3, this);
+    print3.anchor.set(0.5);
+    print3.scale.set(1);
+
+
+
+    print4 = game.add.button(4700,2750,'print4', openWindow4, this);
+    print4.anchor.set(0.5);
+    print4.scale.set(1);
+
+/*опделение координат close */
 
     var pw = (popup.width / 2) - 48;
     var ph = (popup.height / 2) - 8;
 
-    //  And click the close button to close it down again
+    //  Добавление крестика 1
     
     var closeButton = game.make.sprite(pw, -ph, 'close');
     closeButton.inputEnabled = true;
@@ -166,12 +186,63 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     //  Add the "close button" to the popup window image
     popup.addChild(closeButton);
 
-    //  Hide it awaiting a click
-    popup.scale.set(1);
 
-        print2 = game.add.sprite(3850,2600,'print2');
-        print3 = game.add.sprite(3150,2600,'print3');
-        print4 = game.add.sprite(4400,2480,'print4');
+  //  Добавление крестика 2
+
+     var pw1 = (popup.width / 2) - 48;
+    var ph1 = (popup.height / 2) + 20;
+    
+    var closeButton1 = game.make.sprite(pw1, -ph1, 'close');
+    closeButton1.inputEnabled = true;
+    closeButton1.input.priorityID = 1;
+    closeButton1.input.useHandCursor = true;
+    closeButton1.events.onInputDown.add(closeWindow2, this);
+    //closeButton.scale.set(0);
+
+    closeButton1.visible = false;
+
+    //  Add the "close button" to the popup window image
+    print2.addChild(closeButton1);
+
+
+     //  Добавление крестика 3
+
+    var pw2 = (print3.width / 2) - 48;
+    var ph2 = (print3.height / 2) - 8;
+
+    
+    var closeButton3 = game.make.sprite(pw2, -ph2, 'close');
+    closeButton3.inputEnabled = true;
+    closeButton3.input.priorityID = 1;
+    closeButton3.input.useHandCursor = true;
+    closeButton3.events.onInputDown.add(closeWindow3, this);
+    closeButton3.visible = false;
+
+    //  Add the "close button" to the popup window image
+    print3.addChild(closeButton3);
+
+
+      //  Добавление крестика 4
+
+    var pw3 = (print4.width / 2) - 48;
+    var ph3 = (print4.height / 2) - 8;
+
+    
+    var closeButton4 = game.make.sprite(pw3, -ph3, 'close');
+    closeButton4.inputEnabled = true;
+    closeButton4.input.priorityID = 1;
+    closeButton4.input.useHandCursor = true;
+    closeButton4.events.onInputDown.add(closeWindow4, this);
+    closeButton4.visible = false;
+
+    //  Add the "close button" to the popup window image
+    print4.addChild(closeButton4);
+
+
+    //  Pop the window open
+    // game.input.onDown.add(openWindow2, this);
+
+
 
 /*ass стрелки*/
 
@@ -189,6 +260,22 @@ game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
   //  button.fixedToCamera = true;
 
 
+/*вариант с закрыванием окна, работает по принципу клика на что угодно*/
+
+/*function openWindow2() {
+
+     if (tween && tween.isRunning || popup.scale.x === 1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
+            //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+            closeButton.visible = false;
+}*/
+
+
 
 
 function openWindow() {
@@ -204,6 +291,49 @@ function openWindow() {
             closeButton.visible = true;
 }
 
+
+function openWindow2() {
+
+    if ((tween !== null && tween.isRunning) || print2.scale.x === 1.5)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = game.add.tween(print2.scale).to( { x: 1.5, y: 1.5 }, 1000, Phaser.Easing.Elastic.Out, true);
+            //game.add.tween(closeButton.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+            closeButton1.visible = true;
+}
+
+
+function openWindow3() {
+
+    if ((tween !== null && tween.isRunning) || print3.scale.x === 1.5)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = game.add.tween(print3.scale).to( { x: 1.5, y: 1.5 }, 1000, Phaser.Easing.Elastic.Out, true);
+            //game.add.tween(closeButton.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+            closeButton3.visible = true;
+}
+
+
+function openWindow4() {
+
+    if ((tween !== null && tween.isRunning) || print4.scale.x === 1.5)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = game.add.tween(print4.scale).to( { x: 1.5, y: 1.5 }, 1000, Phaser.Easing.Elastic.Out, true);
+            //game.add.tween(closeButton.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+            closeButton4.visible = true;
+}
+
+
 function closeWindow() {
 
     if (tween && tween.isRunning || popup.scale.x === 1)
@@ -215,6 +345,47 @@ function closeWindow() {
     tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
             //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
             closeButton.visible = false;
+}
+
+
+function closeWindow2() {
+
+    if (tween && tween.isRunning || print2.scale.x === 1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(print2.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
+            //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+            closeButton1.visible = false;
+}
+
+
+function closeWindow3() {
+
+    if (tween && tween.isRunning || print3.scale.x === 1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(print3.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
+            //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+            closeButton3.visible = false;
+}
+
+function closeWindow4() {
+
+    if (tween && tween.isRunning || print4.scale.x === 1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(print4.scale).to( { x: 1, y: 1 }, 500, Phaser.Easing.Elastic.In, true);
+            //game.add.tween(closeButton.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+            closeButton4.visible = false;
 }
 
 
